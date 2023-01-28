@@ -18,11 +18,32 @@ IMPORTANTE
       -'React.useState' - 'React.useEffect';
 */
 
-
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../redux/actions/index";
 
 const BandDetail = (props) => {
-   return <div></div>;
+      const dispatch = useDispatch();
+      const band = useSelector(state => state.bands.find(band => band.id === props.match.params.id));
+      React.useEffect(() => {
+            dispatch(actions.getBandDetail(props.match.params.id));
+      }, [dispatch, props.match.params.id]);
+
+      return (
+            <div>
+                  <h1>{band.name}</h1>
+                  <img src={band.image} alt={band.name} />
+                  <h5>Entradas disponibles: {band.tickets}</h5>
+                  <h5>Fecha del evento: {band.functionDate}</h5>
+                  <h5>Origen de la banda: {band.origin}</h5>
+                  <h5>Integrantes: {
+                        band.members.map((member, index) => {
+                              return <span key={index}>{member} </span>
+                        })
+                  }</h5>
+                  <h3>{band.description}</h3>
+            </div>
+      )
 };
 
 export default BandDetail;
