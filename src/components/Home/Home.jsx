@@ -20,16 +20,46 @@ IMPORTANTE
 import './home.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BandCard from '../BandCard/BandCard';
+import * as actions from "./../../redux/actions/index";
+import imagen from "../../img-cp2/main-image-cp2.jpg"
+
 export class Home extends Component {
-   componentDidMount() {}
+   componentDidMount() {
+      this.props.getAllBands()
+   }
 
    render() {
-      return <div className='home'></div>;
+      return (<div className='home'>
+         <h1>Henry Palooza</h1>
+         <img src={imagen} alt="henry-palooza-logo" />
+         <h3>Bandas</h3>
+         <h4>Checkpoint M2</h4>
+         {this.props.bands && this.props.bands.map(band =>(
+            <BandCard
+            key={band.key}
+            id={band.id}
+            name={band.name}
+            image={band.image}
+            functionDate={band.functionDate}
+            ></BandCard>
+         ))}
+      </div>);
    }
 }
 
-export const mapStateToProps = () => {};
+export const mapStateToProps = (state) => {
+   return {
+      bands: state.bands
+   }
+};
 
-export const mapDispatchToProps = () => {};
+export const mapDispatchToProps = (dispatch) => {
+   return {
+      getAllBands: function(){
+         dispatch(actions.getAllBands())
+      }
+   }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
