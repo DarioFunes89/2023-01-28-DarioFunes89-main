@@ -11,9 +11,13 @@ IMPORTANTE
 */
 import './nav.css';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Nav = () => {
-   return <div className='nav'></div>;
+function Nav() {
+   return <div className='nav'>
+      <Link to="/">Home</Link>
+      <Link to="/band/create">Create Band</Link>
+   </div>;
 };
 
 export default Nav;
