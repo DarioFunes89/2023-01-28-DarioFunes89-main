@@ -13,9 +13,22 @@ IMPORTANTE
 */
 import './bandCard.css';
 import React from 'react';
+import {Link} from "react-router-dom"
+import * as actions from "../../redux/actions"
+import { useDispatch } from 'react-redux';
+
 
 const BandCard = (props) => {
-   return <div className='card'></div>;
+   const dispatch = useDispatch();
+   return (
+      <div className='card'>
+      <button onClick={() => dispatch(actions.deleteBands(props.id))}>x</button>
+      <h3>{props.name}</h3>
+      <img src={props.image} alt={props.name}/>
+      <p>FunctionDate: {props.functionDate}</p>
+      <Link to={`/band/${props.id}`}>{props.name}</Link>
+
+   </div>);
 };
 
 export default BandCard;
