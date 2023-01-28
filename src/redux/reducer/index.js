@@ -6,7 +6,7 @@ import {
    GET_BAND_DETAILS,
    CREATE_BANDS,
    DELETE_BANDS,
-} from '../actions';
+} from '../actions/index';
 
 const initialState = {
    bands: [],
@@ -33,7 +33,30 @@ REQUISITOS:
 const rootReducer = (state = initialState, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
-  }
+   case CREATE_BANDS:
+      return {
+         ...state,
+         bands:[...state.bands, action.payload],
+      }
+   case DELETE_BANDS:
+   const deletefilter = state.bands.filter((e) => e.id !== action.payload)
+      return {
+         ...state,
+         bands: deletefilter,
+      }
+   case GET_ALL_BANDS:
+      return {
+         ...state,
+         bands: action.payload
+      }
+   case GET_BAND_DETAILS:
+      return {
+         ...state,
+         bandDetail: action.payload
+      }
+   default:
+      return {...state}
+   }
 };
 
 export default rootReducer;
